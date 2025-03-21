@@ -72,11 +72,12 @@
         const total = Math.round(dons.reduce((sum, d) => sum + d.DON, 0));
         const formattedTotal = total.toLocaleString("fr-FR");
         const formattedObjectif = objectif.toLocaleString("fr-FR");
-        const pourcentage = Math.min(100, (total / objectif) * 100).toFixed(1);
+        const brutPourcentage = (total / objectif) * 100;
+        const pourcentage = Math.min(100, brutPourcentage).toFixed(1);
 
         const bar = document.getElementById("progressBar");
         bar.style.width = pourcentage + "%";
-        bar.textContent = pourcentage + "%";
+        bar.textContent = brutPourcentage >= 100 ? "100%" : pourcentage + "%";
 
         document.getElementById("progressText").textContent =
           formattedTotal + " € collectés sur " + formattedObjectif + " €";
