@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collecte de Dons</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .progress-container {
+      width: 80%;
+      margin: 20px auto;
+      background: #eee;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 30px;
+      background-color: #4caf50;
+      width: 0%;
+      line-height: 30px;
+      color: white;
+      transition: width 0.5s;
+    }
+    .banderole {
+      margin-top: 30px;
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Collecte de Dons</h1>
+
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar">0%</div>
+  </div>
+
+  <p id="progressText">Chargement des données...</p>
+
+  <!-- Banderole image -->
+  <img src="banderole.jpg" alt="Illustration du projet" class="banderole">
+
+  <script>
+    async function fetchData() {
+      try {
+        const response = await fetch("donnees.json"); // Chemin local ou GitHub Pages
+        const data = await response.json();
+
+        const dons = data.dons;
+        const objectif = data.objectif;
+        const total = dons.reduce((sum, d) => sum + d.DON, 0);
+        const pourcentage = Math.min(100, (total / objectif) * 100).toFixed(1);
+
+        const bar = document.getElementById("progressBar");
+        bar.style.width = pourcentage + "%";
+        bar.textContent = pourcentage + "%";
+
+        document.getElementById("progressText").textContent =
+          total + " € collectés sur " + objectif + " €";
+
+      } catch (error) {
+        document.getElementById("progressText").textContent = "Erreur de chargement des données.";
+        console.error("Erreur de chargement JSON :", error);
+      }
+    }
+
+    fetchData();
+  </script>
+
+</body>
+</html>

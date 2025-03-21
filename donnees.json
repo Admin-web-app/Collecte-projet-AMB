@@ -1,0 +1,9 @@
+{
+  "dons": [
+    { "ID": 1, "DON": 100 },
+    { "ID": 2, "DON": 50 },
+    { "ID": 3, "DON": 75 }
+  ],
+  "objectif": 1000,
+  "admin": "contact@exemple.com"
+}
